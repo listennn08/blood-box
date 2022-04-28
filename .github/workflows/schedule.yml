@@ -1,0 +1,18 @@
+name: Update Gist
+on:
+  schedule:
+    - cron: 30 8 * * *
+jobs:
+  exec:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: action/checkout@master
+      - name: Install
+        run: npx pnpm i --store=node_modules/.pnpm-store
+      - name: update
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+          BLOOD_API_URL: ${{ secrets.BLOOD_API_URL }}
+          GIST_ID: ${{ secrets.GIST_ID }}
+        run: npm run dev
+      
