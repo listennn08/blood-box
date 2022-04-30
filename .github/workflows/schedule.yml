@@ -6,7 +6,7 @@ jobs:
   exec:
     runs-on: ubuntu-latest
     steps:
-      - uses: action/checkout@master
+      - uses: actions/checkout@master
       - name: Install
         run: npx pnpm i --store=node_modules/.pnpm-store
       - name: update
