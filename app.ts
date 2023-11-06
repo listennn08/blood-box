@@ -35,6 +35,7 @@ const octokit = new Octokit({ auth: `token ${token}`})
 ;(async () => {
   const bloodResp = (await axios.get(bloodApiUrl)).data as BloodResp
 
+  console.log(bloodResp)
   bloodResp.citys.forEach((el) => {
     Object.values(el).map((data, i) => {
       if (!i) displayTemplate[i] += data + '｜'
@@ -56,20 +57,21 @@ const octokit = new Octokit({ auth: `token ${token}`})
         ...files.reduce((acc, cur) => ({
           ...acc,
           [cur]: {
-            content: ''
+            filename,
+            content,
           }
         }), {}),
       },
     })
-  }
-
-  await octokit.rest.gists.update({
-    gist_id,
-    files: {
-      [filename]: {
-        filename,
-        content,
+  } else {
+    await octokit.rest.gists.update({
+      gist_id,
+      files: {
+        [filename]: {
+          filename,
+          content,
+        },
       },
-    },
-  })
+    })
+  }
 })()
