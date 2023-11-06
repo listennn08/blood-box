@@ -11,7 +11,7 @@ jobs:
         run: npx pnpm i --store=node_modules/.pnpm-store
       - name: update
         env:
-          TOKEN: ${{ secrets.TOKEN }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BLOOD_API_URL: ${{ secrets.BLOOD_API_URL }}
           GIST_ID: ${{ secrets.GIST_ID }}
         run: npm run dev
