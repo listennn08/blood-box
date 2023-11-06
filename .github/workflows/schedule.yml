@@ -7,7 +7,10 @@ jobs:
   exec:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
       - name: Install
         run: npx pnpm i --store=node_modules/.pnpm-store
       - name: update
