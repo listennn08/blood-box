@@ -7,15 +7,13 @@ on:
 jobs:
   exec:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        go-version: [ '1.21.x' ]
+        
     steps:
       - uses: actions/checkout@v4
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: ${{ matrix.go-version }}
+          go-version: '1.21.x' 
       - name: Install dependencies
         run: go get .
         
