@@ -7,19 +7,9 @@ on:
 jobs:
   exec:
     runs-on: ubuntu-latest
-        
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: '1.21.x' 
-      - name: Install dependencies
-        run: go get .
-        
-      - name: Update gist
+      - uses: listennn08/blood-box@main
         env:
           TOKEN: ${{ secrets.TOKEN }}
           BLOOD_API_URL: ${{ secrets.BLOOD_API_URL }}
           GIST_ID: ${{ secrets.GIST_ID }}
-        run: go run main.go
