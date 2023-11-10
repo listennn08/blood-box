@@ -1,0 +1,12 @@
+name: blood-box
+description: A GitHub Action to create a blood box
+runs:
+  using: composite
+  steps:
+  - uses: actions/setup-go@v4
+    with:
+      go-version: '1.21.x' 
+  - name: Install dependencies
+    run: go get .
+  - name: Update gist
+    run: go run main.go
