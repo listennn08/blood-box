@@ -12,16 +12,15 @@ import (
 	"github.com/joho/godotenv"
 )
 
-type Blood struct {
-	City string `json:"city"`
-	A型   string `json:"A型"`
-	B型   string `json:"B型"`
-	O型   string `json:"O型"`
-	AB型  string `json:"AB型"`
-}
 type BloodResp struct {
-	UpdateTime string  `json:"updateTime"`
-	Citys      []Blood `json:"citys"`
+	UpdateTime string `json:"updateTime"`
+	Cities     []struct {
+		City string `json:"city"`
+		A型   string `json:"A型"`
+		B型   string `json:"B型"`
+		O型   string `json:"O型"`
+		AB型  string `json:"AB型"`
+	} `json:"cities"`
 }
 
 func main() {
@@ -76,7 +75,7 @@ func main() {
 	}
 
 	filename := fmt.Sprintf("🩸 血液庫存 %s", data.UpdateTime)
-	for _, v := range data.Citys {
+	for _, v := range data.Cities {
 		DISPLAY_TEMPLATE[0] += fmt.Sprintf("%s｜", v.City)
 		DISPLAY_TEMPLATE[1] += fmt.Sprintf("%s｜", DISPLAY_TEXT[v.A型])
 		DISPLAY_TEMPLATE[2] += fmt.Sprintf("%s｜", DISPLAY_TEXT[v.B型])
@@ -98,9 +97,7 @@ func main() {
 		}
 		client.Gists.Edit(ctx, GIST_ID, &github.Gist{
 			Files: map[github.GistFilename]github.GistFile{
-				github.GistFilename(k): {
-					Content: nil,
-				},
+				github.GistFilename(k): {},
 			},
 		})
 		fmt.Printf("Delete file: %s\n", k)
@@ -113,5 +110,5 @@ func main() {
 			},
 		},
 	})
-	fmt.Println("Create file: ", filename)
+	fmt.Printf("Create file: %s\n", filename)
 }
